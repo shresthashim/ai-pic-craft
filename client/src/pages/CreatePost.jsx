@@ -8,7 +8,9 @@ const CreatePost = () => {
   const handleSubmit = (e) => {};
   const handleSurpriseMe = () => {};
   const handleChange = () => {};
+  const generateImg = () => {};
 
+  
   const navigate = useNavigate();
   const [form, setForm] = useState({
     name: "",
@@ -61,6 +63,10 @@ const CreatePost = () => {
               </div>
             )}
           </div>
+        </div>
+
+        <div className='mt-5 flex gap-5 '>
+          <button type='button' onClick={generateImg}></button>
         </div>
       </form>
     </section>
