@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Form, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { preview } from "../assets";
 import { getRandomPrompt } from "../utils";
@@ -68,7 +68,7 @@ const CreatePost = () => {
       } catch (err) {
         alert(err);
       } finally {
-        setGeneratingImg(false);
+        setGeneratingImg(false)
       }
     } else {
       alert("Please provide proper prompt");
