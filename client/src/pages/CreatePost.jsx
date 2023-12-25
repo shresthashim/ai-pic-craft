@@ -10,7 +10,6 @@ const CreatePost = () => {
   const handleChange = () => {};
   const generateImg = () => {};
 
-  
   const navigate = useNavigate();
   const [form, setForm] = useState({
     name: "",
@@ -66,7 +65,24 @@ const CreatePost = () => {
         </div>
 
         <div className='mt-5 flex gap-5 '>
-          <button type='button' onClick={generateImg}></button>
+          <button
+            type='button'
+            onClick={generateImg}
+            className=' text-white bg-green-700 font-medium rounded-md text-sm w-full sm:w-auto px-5 py-2.5 text-center'
+          >
+            {generatingImg ? "Generating..." : "Generate"}
+          </button>
+        </div>
+        <div className='mt-10'>
+          <p className='mt-2 text-[#666e75] text-[14px]'>
+            ** Once you have created the image you want, you can share it with others in the community **
+          </p>
+          <button
+            type='submit'
+            className='mt-3 text-white bg-[#6469ff] font-medium rounded-md text-sm w-full sm:w-auto px-5 py-2.5 text-center'
+          >
+            {loading ? "Sharing..." : "Share with the Community"}
+          </button>
         </div>
       </form>
     </section>
