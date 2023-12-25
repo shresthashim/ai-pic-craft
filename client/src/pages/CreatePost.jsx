@@ -5,16 +5,6 @@ import { preview } from "../assets";
 import { getRandomPrompt } from "../utils";
 import { FormField, Loader } from "../components";
 const CreatePost = () => {
-  const handleSubmit = (e) => {};
-  const handleSurpriseMe = () => {
-    const randomPrompt = getRandomPrompt(form.prompt);
-    setForm({ ...form, prompt: randomPrompt });
-  };
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
-  const generateImg = () => {};
-
   const navigate = useNavigate();
   const [form, setForm] = useState({
     name: "",
@@ -24,6 +14,40 @@ const CreatePost = () => {
 
   const [generatingImg, setGeneratingImg] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  const handleSubmit = (e) => {};
+  const handleSurpriseMe = () => {
+    const randomPrompt = getRandomPrompt(form.prompt);
+    setForm({ ...form, prompt: randomPrompt });
+  };
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+  const generateImg = async () => {
+    if (form.prompt) {
+      try {
+        setGeneratingImg(true);
+        const response = await fetch("http://localhost:8080/api/v1/dalle", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            prompt: form.prompt,
+          }),
+        });
+
+        const data = await response.json();
+        setForm({ ...form, photo: `data:image/jpeg;base64,${data.photo}` });
+      } catch (err) {
+        alert(err);
+      } finally {
+        setGeneratingImg(false);
+      }
+    } else {
+      alert("Please provide proper prompt");
+    }
+  };
 
   return (
     <section className='max-w-7xl mx-auto'>
@@ -80,8 +104,24 @@ const CreatePost = () => {
         </div>
         <div className='mt-10'>
           <p className='mt-2 text-[#666e75] text-[14px]'>
-            ** Once you have created the image you want, you can share it with others in the community **
+            ** Once you have created the image you want, you can share it with others in the community **<br></br>
           </p>
+          <p className='mt-2 text-[#666e75] text-[14px] font-bold'>
+            This AI image generator will work until March, 2024, or until the free credits of OpenAI account are used up. To use
+            this after that, you will need to create your own OpenAI account (never opened before) and add your API key in the
+            backend
+            <span className='italic'> OR</span> you can mail me the API key having free credits to use it in my backend! For more
+            information, please visit the{" "}
+            <a href='https://platform.openai.com/usage' className='underline' target='_blank' rel='noopener noreferrer'>
+              OpenAI
+            </a>
+            . After obtaining the API key, please{" "}
+            <a href='mailto:ashimsth89@gmail.com' className='underline'>
+              send it to ashimsth89@gmail.com
+            </a>
+            .
+          </p>
+
           <button
             type='submit'
             className='mt-3 text-white bg-[#6469ff] font-medium rounded-md text-sm w-full sm:w-auto px-5 py-2.5 text-center'
